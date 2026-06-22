@@ -6,17 +6,59 @@ import Loader from './components/Loader';
 import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
 import AboutSection from './components/AboutSection';
+import FeaturedProjectSection from './components/FeaturedProjectSection';
 import TechnologiesSection from './components/TechnologiesSection';
 import ProcessSection from './components/ProcessSection';
 import WhyChooseUs from './components/WhyChooseUs';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-import AIChatBot from './components/AIChatBot';
+import PrivacyPolicySection from './components/PrivacyPolicySection';
+import TermsAndConditionsSection from './components/TermsAndConditionsSection';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    let pageTitle = 'Xentriq Studio | Premium Custom Software & AI Agents';
+    let canonicalUrl = 'https://xentriqstudio.com';
+
+    if (currentPath === '/privacy') {
+      pageTitle = 'Privacy Policy | Xentriq Studio';
+      canonicalUrl = 'https://xentriqstudio.com/privacy';
+    } else if (currentPath === '/terms') {
+      pageTitle = 'Terms & Conditions | Xentriq Studio';
+      canonicalUrl = 'https://xentriqstudio.com/terms';
+    }
+
+    document.title = pageTitle;
+    
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', canonicalUrl);
+  }, [currentPath]);
+
+  const navigateTo = (path: string) => {
+    window.history.pushState({}, '', path);
+    window.dispatchEvent(new Event('popstate'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     // Initiate buttery smooth scrolling on all modern desktop structures
@@ -51,37 +93,43 @@ export default function App() {
           {/* Header Bar Navigation */}
           <Navbar />
 
-          <main className="w-full flex flex-col">
-            {/* Cinematic Landing Screen */}
-            <HeroSection />
+          {currentPath === '/privacy' ? (
+            <PrivacyPolicySection onBack={() => navigateTo('/')} />
+          ) : currentPath === '/terms' ? (
+            <TermsAndConditionsSection onBack={() => navigateTo('/')} />
+          ) : (
+            <main className="w-full flex flex-col">
+              {/* Cinematic Landing Screen */}
+              <HeroSection />
 
-            {/* Structured Solution Services */}
-            <ServicesSection />
+              {/* Structured Solution Services */}
+              <ServicesSection />
 
-            {/* Storyteller Studio Overview */}
-            <AboutSection />
+              {/* Storyteller Studio Overview */}
+              <AboutSection />
 
-            {/* Circular Orbiting Tools Stack */}
-            <TechnologiesSection />
+              {/* Flagship Featured Government News Application */}
+              <FeaturedProjectSection />
 
-            {/* Methodical Timeline Deliveries */}
-            <ProcessSection />
+              {/* Circular Orbiting Tools Stack */}
+              <TechnologiesSection />
 
-            {/* Comparative Bento Supremacy Boxes */}
-            <WhyChooseUs />
+              {/* Methodical Timeline Deliveries */}
+              <ProcessSection />
 
-            {/* Secure CRM Launchpad Contact Onboarding */}
-            <ContactSection />
-          </main>
+              {/* Comparative Bento Supremacy Boxes */}
+              <WhyChooseUs />
+
+              {/* Secure CRM Launchpad Contact Onboarding */}
+              <ContactSection />
+            </main>
+          )}
 
           {/* Minimal Corporate Footer */}
           <Footer />
 
           {/* Golden Interactive floating WhatsApp trigger */}
           <WhatsAppButton />
-
-          {/* Luxury AI Chatbot trigger and panel */}
-          <AIChatBot />
         </div>
       )}
     </div>

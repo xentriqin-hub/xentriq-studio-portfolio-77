@@ -10,12 +10,13 @@ export default function ContactSection() {
     company: '',
     phone: '',
     projectType: 'Website Development',
-    budget: '10K - 25K',
+    budget: 'INR 5,000 - 15,000',
     message: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   
   // Track hover and coordinate details for contact container interactive particles
   const [isHovered, setIsHovered] = useState(false);
@@ -40,33 +41,52 @@ export default function ContactSection() {
   ];
 
   const budgets = [
-    'Under $10,000',
-    '$10,000 - $25,000',
-    '$25,000 - $50,000',
-    '$50,000 - $100,000',
-    '$100,000+'
+    'INR 5,000 - 15,000',
+    'INR 15,000 - 30,000',
+    'INR 30,000 - 50,000',
+    'INR 50,000 - 75,000',
+    'INR 75,000+'
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email) return;
 
     setLoading(true);
-    // Simulate luxury-level database pipeline storage
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-      // Reset form
-      setForm({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        projectType: 'Website Development',
-        budget: '10K - 25K',
-        message: ''
+    setErrorMsg(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form)
       });
-    }, 1500);
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitted(true);
+        // Reset form
+        setForm({
+          name: '',
+          email: '',
+          company: '',
+          phone: '',
+          projectType: 'Website Development',
+          budget: 'INR 5,000 - 15,000',
+          message: ''
+        });
+      } else {
+        setErrorMsg(data.error || 'The Xentriq connection pipeline timed out. Please try again.');
+      }
+    } catch (err: any) {
+      console.error('Contact submit error:', err);
+      setErrorMsg('Network error connecting to Xentriq pipelines. Please verify connection.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -105,7 +125,7 @@ export default function ContactSection() {
           </p>
 
           <div className="flex flex-col gap-4 mt-4 font-mono text-[10px] tracking-widest text-[#D4AF37] font-semibold uppercase">
-            <span>• INFO@XENTRIQSTUDIO.COM</span>
+            <span>• ADMIN@XENTRIQSTUDIO.COM</span>
             <a 
               href="https://wa.me/7824918457?text=Hi%20Xentriq%20Studio%20Team,%20I'm%20interested%20in%20partnering%20on%20a%20luxury%20digital%20solution." 
               target="_blank" 
@@ -234,25 +254,31 @@ export default function ContactSection() {
                     className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/30 focus:border-[#D4AF37] text-sm text-white focus:outline-none transition-colors resize-none"
                   />
                 </div>
-
                 {/* Master solid-gold action submit button */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="mt-4 px-8 py-3.5 rounded-xl font-display text-xs tracking-widest uppercase font-semibold text-black bg-gradient-to-r from-[#D4AF37] via-[#F5DF88] to-[#C59B27] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.55)] cursor-pointer disabled:opacity-50"
-                >
-                  {loading ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                      <span>Transmitting Files...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
-                      <span>Start Your Project</span>
-                    </>
+                <div className="flex flex-col gap-3">
+                  {errorMsg && (
+                    <span className="font-mono text-[10px] tracking-wider text-red-400 uppercase font-semibold">
+                      ⚠️ {errorMsg}
+                    </span>
                   )}
-                </button>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full mt-2 px-8 py-3.5 rounded-xl font-display text-xs tracking-widest uppercase font-semibold text-black bg-gradient-to-r from-[#D4AF37] via-[#F5DF88] to-[#C59B27] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.55)] cursor-pointer disabled:opacity-50"
+                  >
+                    {loading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                        <span>Transmitting Files...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                        <span>Start Your Project</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </motion.form>
             ) : (
               <motion.div 
@@ -268,7 +294,7 @@ export default function ContactSection() {
                   TRANSMISSION MATCHED!
                 </h3>
                 <p className="font-sans text-xs text-gray-400 max-w-sm leading-relaxed">
-                  Your project blueprint coordinates are securely saved inside the Xentriq Studio core database. A chief architect will contact you within 12 hours.
+                  Your project blueprint coordinates are securely saved and dispatched to <strong className="text-[#D4AF37]">admin@xentriqstudio.com</strong>. A chief architect will contact you within 12 hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}

@@ -127,25 +127,6 @@ export default function HeroSection() {
           >
             Creating Premium Digital Experiences
           </motion.p>
-
-          {/* Premium Chat with AI Agent CTA button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 1 }}
-            className="mt-10 flex justify-center relative z-20 pointer-events-auto"
-          >
-            <button
-              onClick={() => window.dispatchEvent(new CustomEvent('open-zephyr-chat'))}
-              className="group relative flex items-center gap-3.5 px-7 py-3.5 rounded-full bg-black/60 border border-[#D4AF37]/35 hover:border-[#D4AF37] text-[#D4AF37] hover:text-white transition-all duration-300 cursor-pointer shadow-[0_4px_30px_rgba(212,175,55,0.05)] focus:outline-none"
-            >
-              <div className="absolute inset-0 bg-[#D4AF37]/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] relative z-10">
-                CHAT WITH AI AGENT
-              </span>
-            </button>
-          </motion.div>
         </motion.div>
 
         {/* Dynamic scroll hint helper indicator */}
@@ -170,9 +151,6 @@ export default function HeroSection() {
           className="flex flex-col items-center gap-1.5"
         >
           <span className="font-mono text-[10px] tracking-[0.6em] text-[#D4AF37]/80 uppercase">REPRESENTING IDENTITY</span>
-          <h2 className="font-display text-xl md:text-2xl font-light tracking-wide text-white max-w-sm">
-            THE CHRONOS SYMBOL
-          </h2>
         </motion.div>
       </div>
     </section>

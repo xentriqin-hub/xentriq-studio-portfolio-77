@@ -11,6 +11,7 @@ export default function Navbar() {
     { label: 'Home', id: 'home' },
     { label: 'Services', id: 'services' },
     { label: 'Story', id: 'about' },
+    { label: 'Featured', id: 'featured-project' },
     { label: 'Stack', id: 'technologies' },
     { label: 'Process', id: 'process' },
     { label: 'Contact', id: 'contact' },
@@ -40,9 +41,20 @@ export default function Navbar() {
 
   const handleNavClick = (id: string) => {
     setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (window.location.pathname !== '/') {
+      window.history.pushState({}, '', '/');
+      window.dispatchEvent(new Event('popstate'));
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

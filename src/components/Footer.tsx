@@ -103,7 +103,7 @@ export default function Footer() {
               </a>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                <span>info@xentriqstudio.com</span>
+                <span>admin@xentriqstudio.com</span>
               </div>
             </div>
           </div>
@@ -114,10 +114,51 @@ export default function Footer() {
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[9px] text-gray-500 tracking-wider">
           <p>© {new Date().getFullYear()} XENTRIQ STUDIO WORLDWIDE. ALL RIGHTS CONSERVED.</p>
           
-          <div className="flex gap-6 uppercase">
-            <a href="#" className="hover:text-white transition-colors">Privacy Charter</a>
-            <a href="#" className="hover:text-white transition-colors">System Protocols</a>
-            <a href="#" className="hover:text-white transition-colors">GCP Clusters</a>
+          <div className="flex gap-6 uppercase select-none">
+            <a 
+              href="/privacy" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                window.history.pushState({}, '', '/privacy'); 
+                window.dispatchEvent(new Event('popstate')); 
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+              }} 
+              className="hover:text-[#D4AF37] transition-colors"
+            >
+              Privacy Policy
+            </a>
+            <a 
+              href="/terms" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                window.history.pushState({}, '', '/terms'); 
+                window.dispatchEvent(new Event('popstate')); 
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+              }} 
+              className="hover:text-[#D4AF37] transition-colors"
+            >
+              Terms & Conditions
+            </a>
+            <a 
+              href="#contact" 
+              onClick={(e) => { 
+                e.preventDefault(); 
+                if (window.location.pathname !== '/') { 
+                  window.history.pushState({}, '', '/'); 
+                  window.dispatchEvent(new Event('popstate')); 
+                  setTimeout(() => {
+                    const el = document.getElementById('contact');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 150); 
+                } else { 
+                  const el = document.getElementById('contact');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                } 
+              }} 
+              className="hover:text-[#D4AF37] transition-colors"
+            >
+              Contact
+            </a>
           </div>
         </div>
 
