@@ -1,37 +1,8 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import React from 'react';
 import { ArrowDown } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Hook to track the scroll position of the hero scene specifically
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end start']
-  });
-
-  // Calculate high-end cinematic textual disintegration translations
-  const textY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
-  const textScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.88]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
-  const blurAmount = useTransform(scrollYProgress, [0, 0.3], [0, 15]);
-
-  const welcomeLetters = "WELCOME TO".split("");
-  const studioLetters = "XENTRIQ STUDIO".split("");
-  const portfolioLetters = "PORTFOLIO".split("");
-
-  // Letter drift mappings to achieve 3D explosion feel
-  const letterX = (index: number, speed: number) => {
-    const direction = index % 2 === 0 ? -1 : 1;
-    return useTransform(scrollYProgress, [0, 0.5], [0, direction * speed * 25]);
-  };
-
-  const letterY = (index: number, speed: number) => {
-    const direction = index % 3 === 0 ? -1.5 : 1;
-    return useTransform(scrollYProgress, [0, 0.5], [0, direction * speed * 20]);
-  };
-
   const handleScrollDown = () => {
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
@@ -41,118 +12,87 @@ export default function HeroSection() {
 
   return (
     <section 
-      ref={containerRef}
       id="home"
-      className="relative w-full h-[150vh] flex flex-col justify-start items-center overflow-visible bg-transparent z-10"
+      className="relative w-full min-h-[92vh] pt-28 pb-16 flex flex-col justify-center items-center overflow-hidden z-10 px-6"
     >
-      {/* Sticky centered screen to hold target graphics and interactive backdrop */}
-      <div className="sticky top-0 w-full h-screen flex flex-col justify-center items-center px-4 md:px-8 overflow-hidden">
+      {/* Main Glassmorphism Hero Panel */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-5xl rounded-[28px] bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-10 sm:p-16 md:p-20 text-center shadow-2xl my-auto"
+      >
         
-        {/* Full-screen responsive Sketchfab 3D Embed Backdrop */}
-        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden select-none pointer-events-none">
-          {/* Subtle dark gradient vignettes to blend the iframe edges beautifully into the black canvas background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-[#020202] z-10 pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#020202] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020202] via-transparent to-[#020202] z-10 pointer-events-none" />
-          
-          <iframe 
-            title="Rocket Orbiting Moon" 
-            frameBorder="0" 
-            allowFullScreen 
-            allow="autoplay; fullscreen; xr-spatial-tracking" 
-            className="w-full h-full transition-opacity duration-1000 origin-center pointer-events-none opacity-30 md:opacity-40 scale-105"
-            style={{ 
-              border: 'none',
-              transform: 'scale(1.08)',
-            }}
-            src="https://sketchfab.com/models/c613bee6fbd041e58a35d777ae87bdcb/embed?autostart=1&preload=1&transparent=1&ui_controls=0&ui_infos=0&ui_watermark=0&ui_stop=0&dnt=1"
-          />
-        </div>
-
-        {/* Cinematic Title Group */}
-        <motion.div
-          style={{ 
-            y: textY, 
-            scale: textScale, 
-            opacity: textOpacity,
-            filter: useTransform(blurAmount, (v) => `blur(${v}px)`)
-          }}
-          className="text-center select-none relative z-10 pointer-events-none"
-        >
-          {/* WELCOME TO Line */}
-          <div className="flex justify-center flex-wrap gap-[0.2em] font-display text-lg md:text-3xl text-gray-500 font-light tracking-[0.4em] uppercase mb-4">
-            {welcomeLetters.map((char, i) => (
-              <motion.span
-                key={`welcome-${i}`}
-                style={{ x: letterX(i, 2), y: letterY(i, 1.5) }}
-                className="inline-block"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
-          </div>
-
-          {/* XENTRIQ STUDIO Line */}
-          <h1 className="flex justify-center flex-wrap leading-tight text-4xl sm:text-6xl md:text-8xl font-display font-extrabold tracking-tight text-white uppercase drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
-            {studioLetters.map((char, i) => (
-              <motion.span
-                key={`studio-${i}`}
-                style={{ x: letterX(i, 4), y: letterY(i, 3) }}
-                className="inline-block bg-gradient-to-r from-white via-white to-[#D4AF37]/80 bg-clip-text"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
-          </h1>
-
-          {/* PORTFOLIO Line */}
-          <div className="flex justify-center flex-wrap gap-[0.3em] font-display text-md md:text-2xl text-[#D4AF37] font-semibold tracking-[0.5em] uppercase mt-2">
-            {portfolioLetters.map((char, i) => (
-              <motion.span
-                key={`portfolio-${i}`}
-                style={{ x: letterX(i, 3), y: letterY(i, 2) }}
-                className="inline-block"
-              >
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
-          </div>
-
-          {/* Slogan subtext */}
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 0.6, y: 0 }}
-            transition={{ delay: 0.8, duration: 1 }}
-            className="mt-8 font-sans text-sm sm:text-lg text-gray-300 max-w-md mx-auto tracking-wider"
-          >
-            Creating Premium Digital Experiences
-          </motion.p>
-        </motion.div>
-
-        {/* Dynamic scroll hint helper indicator */}
-        <motion.div
-          style={{ opacity: textOpacity }}
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-16 flex flex-col items-center gap-2 cursor-pointer z-30 pointer-events-auto"
-          onClick={handleScrollDown}
-        >
-          <span className="font-mono text-[9px] tracking-[0.4em] text-[#D4AF37] uppercase">Scroll To Explore</span>
-          <ArrowDown className="w-4 h-4 text-gray-500 hover:text-[#D4AF37] transition-colors" />
-        </motion.div>
-      </div>
-
-      {/* Floating Scroll State Overlays (Gives visual context for the particle logo morph) */}
-      <div className="absolute top-[85vh] left-1/2 -translate-x-1/2 text-center pointer-events-none select-none z-10 w-full px-6">
-        <motion.div
+        {/* WELCOME TO Line */}
+        <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 0.8 * (1 - Math.abs(window.scrollY / 2000)), scale: 1 }}
-          viewport={{ once: false, margin: '-20%' }}
-          className="flex flex-col items-center gap-1.5"
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8"
         >
-          <span className="font-mono text-[10px] tracking-[0.6em] text-[#D4AF37]/80 uppercase">REPRESENTING IDENTITY</span>
+          <span className="font-mono text-[10px] sm:text-xs text-white font-semibold tracking-[0.3em] uppercase">
+            WELCOME TO
+          </span>
         </motion.div>
-      </div>
+
+        {/* XENTRIQ STUDIO Line */}
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="text-4xl sm:text-6xl md:text-8xl font-display font-bold tracking-tight text-white uppercase mb-4"
+        >
+          XENTRIQ STUDIO
+        </motion.h1>
+
+        {/* PORTFOLIO Line */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="font-display text-base sm:text-xl md:text-2xl text-white/60 font-semibold tracking-[0.4em] uppercase mb-8"
+        >
+          PORTFOLIO
+        </motion.div>
+
+        {/* Slogan subtext */}
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="font-sans text-base sm:text-xl text-gray-300 max-w-xl mx-auto tracking-wide font-normal leading-relaxed mb-12"
+        >
+          Creating Premium Digital Experiences
+        </motion.p>
+
+        {/* REPRESENTING IDENTITY tag preserved */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="pt-6 border-t border-white/10 flex justify-center items-center"
+        >
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-white/50 uppercase font-semibold">
+            REPRESENTING IDENTITY
+          </span>
+        </motion.div>
+      </motion.div>
+
+      {/* Clean Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.8 }}
+        className="mt-12 flex flex-col items-center gap-2 cursor-pointer z-20 group transition-all duration-200 hover:-translate-y-0.5"
+        onClick={handleScrollDown}
+      >
+        <span className="font-mono text-[10px] tracking-[0.3em] text-gray-500 group-hover:text-white uppercase transition-colors font-medium">
+          Scroll To Explore
+        </span>
+        <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/50 transition-colors">
+          <ArrowDown className="w-3.5 h-3.5 text-gray-500 group-hover:text-white transition-colors" />
+        </div>
+      </motion.div>
     </section>
   );
 }

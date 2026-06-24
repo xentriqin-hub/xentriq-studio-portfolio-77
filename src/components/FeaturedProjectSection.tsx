@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useInView } from 'motion/react';
+import { useInView } from 'motion/react';
 import { 
   FileText, 
   Zap, 
@@ -24,8 +24,7 @@ import {
 } from 'lucide-react';
 import TiltCard from './TiltCard';
 
-// Hook-based Animated Counter to count up when visible
-function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: number }) {
+function AnimatedCounter({ value, duration = 1.2 }: { value: string; duration?: number }) {
   const [displayValue, setDisplayValue] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -42,7 +41,7 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
     function animate(currentTime: number) {
       if (!startTime) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / (duration * 1000), 1);
-      const easeProgress = progress * (2 - progress); // easeOut
+      const easeProgress = progress * (2 - progress);
       setDisplayValue(Math.floor(easeProgress * target));
       
       if (progress < 1) {
@@ -55,7 +54,7 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
 
   if (!isNumericStr(value)) {
     return (
-      <span ref={ref} className="font-display font-light text-[#D4AF37]">
+      <span className="font-display font-bold text-white">
         {value}
       </span>
     );
@@ -63,7 +62,7 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
 
   const nonDigitSuffix = value.replace(/\d+/g, '');
   return (
-    <span ref={ref} className="font-display font-light bg-gradient-to-r from-[#D4AF37] via-[#F5DF88] to-[#C59B27] bg-clip-text text-transparent">
+    <span ref={ref} className="font-display font-bold text-white">
       {displayValue}
       {nonDigitSuffix}
     </span>
@@ -71,30 +70,6 @@ function AnimatedCounter({ value, duration = 1.5 }: { value: string; duration?: 
 }
 
 export default function FeaturedProjectSection() {
-  const showcaseRef = useRef<HTMLDivElement>(null);
-  const [tiltX, setTiltX] = useState(0);
-  const [tiltY, setTiltY] = useState(0);
-
-  // Gentle interactive parallax/tilt on device showcase panel hover
-  const handleShowcaseMouseMove = (e: React.MouseEvent) => {
-    if (!showcaseRef.current) return;
-    const rect = showcaseRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    // Position normalized from center: -1 to +1
-    const x = (e.clientX - rect.left - width / 2) / (width / 2);
-    const y = (e.clientY - rect.top - height / 2) / (height / 2);
-    
-    setTiltX(x * 6); // Subtle shift
-    setTiltY(y * -6);
-  };
-
-  const handleShowcaseMouseLeave = () => {
-    setTiltX(0);
-    setTiltY(0);
-  };
-
   const badges = [
     { text: 'Progressive Web App (PWA)', icon: Laptop },
     { text: 'Android App', icon: Smartphone },
@@ -175,7 +150,6 @@ export default function FeaturedProjectSection() {
     { value: 'Secure', label: 'Firebase' }
   ];
 
-  // Helper smooth scroll
   const scrollToContact = () => {
     const contactEl = document.getElementById('contact');
     if (contactEl) {
@@ -188,155 +162,78 @@ export default function FeaturedProjectSection() {
       id="featured-project" 
       className="relative py-28 px-6 md:px-10 max-w-7xl mx-auto z-15 flex flex-col justify-center border-t border-white/5 overflow-hidden"
     >
-      {/* Background radial gold glow blots */}
-      <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-[#D4AF37]/3 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[400px] h-[400px] bg-[#D4AF37]/3 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* 1. Header Title Block */}
+      {/* 1. Header Block */}
       <div className="text-center mb-16 relative">
-        <motion.span 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 0.65, scale: 1 }}
-          viewport={{ once: true }}
-          className="font-mono text-[10px] tracking-[0.6em] text-[#D4AF37] uppercase block mb-3"
-        >
+        <span className="font-mono text-[10px] tracking-[0.6em] text-white uppercase font-semibold block mb-2">
           FEATURED PRODUCT
-        </motion.span>
+        </span>
         
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="font-display text-4xl sm:text-5xl md:text-6xl font-extralight tracking-tight text-white uppercase leading-none"
-        >
-          TN <span className="text-[#D4AF37] font-semibold tracking-wide">TODAY</span>
-        </motion.h2>
+        <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white uppercase leading-none">
+          TN <span className="text-white">TODAY</span>
+        </h2>
 
-        <motion.p 
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 0.8, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-4 font-sans text-xs sm:text-sm tracking-[0.25em] text-gray-400 font-medium uppercase"
-        >
+        <p className="mt-4 font-sans text-xs sm:text-sm tracking-[0.25em] text-gray-400 font-medium uppercase">
           Tamil Nadu's Modern Government News Platform
-        </motion.p>
-        <div className="h-[2px] w-16 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mt-6" />
+        </p>
+        <div className="h-[2px] w-20 bg-white mx-auto mt-6" />
       </div>
 
       {/* 2. Core Narrative Column Split */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
         <div className="lg:col-span-6 flex flex-col gap-6">
-          <motion.h3
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="font-display text-xl sm:text-2xl font-light text-white leading-relaxed border-l-2 border-[#D4AF37] pl-5"
-          >
+          <h3 className="font-display text-xl sm:text-2xl font-semibold text-white leading-relaxed border-l-2 border-white pl-5">
             Empowering citizens through verified real-time digital announcement networks.
-          </motion.h3>
+          </h3>
 
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.7 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="font-sans text-sm text-gray-300 leading-relaxed"
-          >
+          <p className="font-sans text-sm text-gray-300 leading-relaxed font-normal">
             TN Today is a modern digital news platform focused on delivering official Tamil Nadu Government news in a fast, clean, and user-friendly experience. The platform is designed to help citizens, students, job seekers, and professionals stay updated with trusted government announcements, schemes, education, employment, public services, and important state updates.
-          </motion.p>
+          </p>
 
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.7 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="font-sans text-sm text-gray-300 leading-relaxed"
-          >
+          <p className="font-sans text-sm text-gray-300 leading-relaxed font-normal">
             The project is being developed by Xentriq Studio with a strong focus on speed, reliability, accessibility, and a premium user experience.
-          </motion.p>
+          </p>
         </div>
 
-        {/* Glass Style Platform Badges list */}
+        {/* Spatial UI Platform Badges */}
         <div className="lg:col-span-6">
-          <h4 className="font-mono text-[9px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-6">PREMIUM SPECIFICATIONS</h4>
-          <motion.div 
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.08 } }
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="flex flex-wrap gap-3"
-          >
+          <h4 className="font-mono text-[10px] tracking-[0.3em] text-white uppercase font-bold mb-6">PREMIUM SPECIFICATIONS</h4>
+          <div className="flex flex-wrap gap-3">
             {badges.map((badge, idx) => {
               const Icon = badge.icon;
               return (
-                <motion.div
+                <div
                   key={idx}
-                  variants={{
-                    hidden: { opacity: 0, y: 15, scale: 0.95 },
-                    visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 100, damping: 15 } }
-                  }}
-                  className="px-4 py-2.5 rounded-xl border border-[#D4AF37]/15 hover:border-[#D4AF37]/40 bg-[#0a0a0a]/70 hover:bg-[#D4AF37]/5 backdrop-blur-md text-[10px] sm:text-xs font-mono tracking-widest text-amber-100 hover:text-[#D4AF37] uppercase transition-all duration-300 flex items-center gap-2.5 select-none shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+                  className="px-4 py-2.5 rounded-xl border border-white/10 bg-white/[0.03] text-[10px] sm:text-xs font-mono tracking-widest text-gray-300 uppercase transition-all duration-200 flex items-center gap-2.5 shadow-sm select-none"
                 >
-                  <Icon className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
+                  <Icon className="w-4 h-4 text-[#7B2FF7] shrink-0" />
                   <span>{badge.text}</span>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* 3. Interactive Device Mockup Showcase & Development Status */}
+      {/* 3. Static Layered Spatial UI Showcase & Development Status */}
       <div className="mb-24">
-        <h4 className="font-mono text-[9px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold text-center mb-10">INTERACTIVE CONCEPT SHOWCASE</h4>
+        <h4 className="font-mono text-[10px] tracking-[0.3em] text-white uppercase font-bold text-center mb-10">INTERACTIVE CONCEPT SHOWCASE</h4>
         
-        <div 
-          ref={showcaseRef}
-          onMouseMove={handleShowcaseMouseMove}
-          onMouseLeave={handleShowcaseMouseLeave}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center bg-[#070707]/60 border border-white/5 rounded-[36px] p-8 md:p-14 relative overflow-hidden transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
-          style={{
-            transform: `perspective(1200px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`,
-            transition: 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'
-          }}
-        >
-          {/* Internal glowing lights */}
-          <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#D4AF37]/2 to-transparent pointer-events-none z-0" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-[#D4AF37]/4 rounded-full blur-[100px] pointer-events-none z-0" />
-
-          {/* Device Mockups Side (Left (Phone) & Right (Desktop PWA)) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[32px] p-8 md:p-14 relative overflow-hidden shadow-2xl">
+          {/* Mockups Side */}
           <div className="lg:col-span-9 grid grid-cols-1 md:grid-cols-12 gap-8 items-center z-10">
             {/* ANDROID PHONE MOCKUP (Left) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.0 }}
-              className="md:col-span-5 flex flex-col items-center justify-center relative group"
-            >
-              {/* Backlight gold halo flare */}
-              <div className="absolute inset-0 bg-[#D4AF37]/10 rounded-[44px] blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
-              
-              {/* Phone Frame */}
-              <div className="relative w-[260px] h-[520px] bg-black rounded-[42px] border-[5px] border-[#D4AF37]/25 group-hover:border-[#D4AF37]/50 shadow-[0_0_40px_rgba(212,175,55,0.08)] group-hover:shadow-[0_0_60px_rgba(212,175,55,0.18)] flex flex-col justify-between overflow-hidden transition-all duration-500 scale-95 md:scale-100 origin-center">
-                {/* Screen Reflection Highlight */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 opacity-70 transform skew-y-12 pointer-events-none z-30" />
-                
-                {/* Top Notch Speaker */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-4.5 bg-black rounded-full z-20 flex items-center justify-center">
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-800 mr-2.5" />
-                  <span className="w-10 h-1 bg-slate-900 rounded-full" />
+            <div className="md:col-span-5 flex flex-col items-center justify-center relative group scale-75 md:scale-100">
+              <div className="relative w-[260px] h-[520px] bg-[#050505] rounded-[42px] border-[4px] border-white/10 group-hover:border-white/50 shadow-xl flex flex-col justify-between overflow-hidden transition-all duration-300 origin-center">
+                {/* Top Speaker */}
+                <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-4 bg-white/5 rounded-full z-20 flex items-center justify-center">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/20 mr-2" />
+                  <span className="w-10 h-1 bg-white/20 rounded-full" />
                 </div>
 
                 {/* Simulated App Screen */}
-                <div className="w-full h-full p-2.5 pt-8 bg-[#040404] flex flex-col overflow-hidden text-left relative">
+                <div className="w-full h-full p-3 pt-8 bg-[#050505] flex flex-col overflow-hidden text-left relative">
                   {/* Status Bar */}
-                  <div className="flex justify-between items-center text-[8px] font-mono text-gray-500 px-2 mb-1.5">
+                  <div className="flex justify-between items-center text-[9px] font-mono text-white/40 px-2 mb-2">
                     <span>TN Today</span>
                     <div className="flex items-center gap-1">
                       <span>• LIVE • </span>
@@ -345,47 +242,46 @@ export default function FeaturedProjectSection() {
                   </div>
 
                   {/* Header */}
-                  <div className="border-b border-[#D4AF37]/15 pb-2 mb-2 flex justify-between items-center">
-                    <span className="font-display text-[10px] tracking-[0.2em] font-semibold text-[#D4AF37]">TN TODAY</span>
-                    <span className="px-1.5 py-0.5 rounded bg-[#D4AF37]/10 text-[#D4AF37] font-mono text-[6px] uppercase tracking-wider animate-pulse">BREAKING</span>
+                  <div className="border-b border-white/10 pb-2 mb-2 flex justify-between items-center">
+                    <span className="font-display text-xs tracking-[0.2em] font-bold text-white">TN TODAY</span>
+                    <span className="px-1.5 py-0.5 rounded bg-white/10 text-white font-mono text-[7px] uppercase tracking-wider font-semibold">BREAKING</span>
                   </div>
 
                   {/* News Main Card */}
-                  <div className="rounded-xl border border-white/5 bg-[#0a0a0a] p-2 flex flex-col gap-1.5 mb-2 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
-                    <div className="h-20 rounded-lg bg-gradient-to-br from-[#111] to-[#333] border border-white/5 relative overflow-hidden flex items-center justify-center">
-                      <div className="absolute inset-0 bg-[#D4AF37]/5" />
-                      <FileText className="w-6 h-6 text-[#D4AF37]/35" />
-                      <span className="absolute bottom-1 left-2 font-mono text-[5px] text-[#D4AF37]">GOVERNMENT OF TAMIL NADU</span>
+                  <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 flex flex-col gap-1.5 mb-2 shadow-sm">
+                    <div className="h-20 rounded-lg bg-white/5 border border-white/5 relative overflow-hidden flex items-center justify-center">
+                      <FileText className="w-6 h-6 text-white/40" />
+                      <span className="absolute bottom-1 left-2 font-mono text-[6px] text-white/60 font-semibold">GOVERNMENT OF TAMIL NADU</span>
                     </div>
-                    <span className="text-[6px] font-mono text-[#D4AF37] uppercase tracking-wider">CM SCHEMES • TODAY</span>
-                    <h5 className="font-display text-[9px] text-white leading-tight font-medium hover:text-[#D4AF37] transition-all">
+                    <span className="text-[7px] font-mono text-white/60 uppercase tracking-wider font-semibold">CM SCHEMES • TODAY</span>
+                    <h5 className="font-display text-[10px] text-white leading-tight font-medium">
                       Honorable CM Launches New Tech & Digital Skill Scholarship and Incubators Scheme
                     </h5>
                   </div>
 
                   {/* Miniature feed list */}
                   <div className="flex flex-col gap-1.5 overflow-hidden flex-1 select-none">
-                    <div className="p-1.5 rounded-lg border border-white/5 bg-[#090909] flex gap-2 items-center">
-                      <div className="w-6 h-6 rounded bg-[#D4AF37]/10 shrink-0 flex items-center justify-center">
-                        <Zap className="w-3 h-3 text-[#D4AF37]" />
+                    <div className="p-2 rounded-lg border border-gray-200 bg-white flex gap-2 items-center">
+                      <div className="w-6 h-6 rounded bg-[#7B2FF7]/10 shrink-0 flex items-center justify-center">
+                        <Zap className="w-3 h-3 text-[#7B2FF7]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-display text-[7px] text-slate-200 truncate">Welfare applications now open for state exams coaching</p>
+                        <p className="font-display text-[8px] text-gray-300 truncate font-medium">Welfare applications now open for state exams coaching</p>
                       </div>
                     </div>
-                    <div className="p-1.5 rounded-lg border border-white/5 bg-[#090909] flex gap-2 items-center">
-                      <div className="w-6 h-6 rounded bg-[#D4AF37]/10 shrink-0 flex items-center justify-center">
-                        <Cpu className="w-3 h-3 text-[#D4AF37]" />
+                    <div className="p-2 rounded-lg border border-gray-200 bg-white flex gap-2 items-center">
+                      <div className="w-6 h-6 rounded bg-[#7B2FF7]/10 shrink-0 flex items-center justify-center">
+                        <Cpu className="w-3 h-3 text-[#7B2FF7]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-display text-[7px] text-slate-200 truncate">Tech Parks expand across tier-2 cities in state roadmap</p>
+                        <p className="font-display text-[8px] text-gray-300 truncate font-medium">Tech Parks expand across tier-2 cities in state roadmap</p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Phone Navigation Controls */}
-                  <div className="border-t border-[#D4AF37]/15 pt-2 mt-auto flex justify-around text-gray-500 text-[6px] font-mono uppercase tracking-widest">
-                    <span className="text-[#D4AF37] font-semibold">FEED</span>
+                  {/* Phone Controls */}
+                  <div className="border-t border-gray-200 pt-2 mt-auto flex justify-around text-gray-400 text-[7px] font-mono uppercase tracking-widest font-semibold">
+                    <span className="text-[#7B2FF7]">FEED</span>
                     <span>SEARCH</span>
                     <span>SAVED</span>
                     <span>PROFILE</span>
@@ -393,83 +289,66 @@ export default function FeaturedProjectSection() {
                 </div>
               </div>
 
-              {/* Bottom reflection shadow */}
-              <div className="w-4/5 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent blur-[1px] mt-6 md:mt-8" />
-              <p className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase mt-2">ANDROID APPLICATION</p>
-            </motion.div>
+              <p className="font-mono text-[10px] text-gray-600 tracking-[0.2em] uppercase mt-4 font-semibold">ANDROID APPLICATION</p>
+            </div>
 
-            {/* LAPTOP / DESKTOP PWA MOCKUP (Right) */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.0 }}
-              className="md:col-span-7 flex flex-col items-center justify-center relative group"
-            >
-              {/* Backlight gold halo flare */}
-              <div className="absolute inset-0 bg-[#D4AF37]/10 rounded-2xl blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none" />
-
-              {/* Laptop Screen Upper Case */}
-              <div className="relative w-full max-w-[460px] h-[280px] bg-black rounded-2xl border-[4px] border-[#D4AF37]/25 group-hover:border-[#D4AF37]/50 shadow-[0_0_50px_rgba(212,175,55,0.06)] group-hover:shadow-[0_0_70px_rgba(212,175,55,0.15)] flex flex-col overflow-hidden transition-all duration-500">
-                {/* Screen Reflection Highlight */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/4 to-white/8 opacity-60 transform skew-y-12 pointer-events-none z-30" />
-
+            {/* DESKTOP PWA MOCKUP (Right) */}
+            <div className="md:col-span-7 flex flex-col items-center justify-center relative group scale-75 md:scale-100 mt-8 md:mt-0">
+              <div className="relative w-full max-w-[480px] h-[300px] bg-white rounded-2xl border-[3px] border-gray-200 group-hover:border-[#2563EB]/50 shadow-2xl flex flex-col overflow-hidden transition-all duration-300">
                 {/* Simulated PWA Desktop Screen */}
-                <div className="w-full h-full bg-[#040404] flex flex-col overflow-hidden text-left relative">
-                  {/* PWA Browser Chrome Bar */}
-                  <div className="w-full bg-[#0a0a0a] border-b border-[#D4AF37]/15 py-1 px-3 flex items-center justify-between text-gray-500 text-[6px] font-mono select-none">
-                    <div className="flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/60" />
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-500/60" />
+                <div className="w-full h-full bg-gray-50 flex flex-col overflow-hidden text-left relative">
+                  {/* Browser Bar */}
+                  <div className="w-full bg-gray-100 border-b border-gray-200 py-1.5 px-3 flex items-center justify-between text-gray-500 text-[7px] font-mono select-none">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-red-400/80" />
+                      <span className="w-2 h-2 rounded-full bg-yellow-400/80" />
+                      <span className="w-2 h-2 rounded-full bg-green-400/80" />
                     </div>
-                    <div className="px-4 py-0.5 rounded bg-black/40 border border-[#D4AF37]/10 w-44 text-center text-[5px] tracking-wide text-gray-400">
+                    <div className="px-4 py-0.5 rounded bg-white border border-gray-200 w-52 text-center text-[6px] tracking-wide text-gray-500">
                       https://tntoday.xentriqstudio.com
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <CheckCircle className="w-2.5 h-2.5 text-emerald-500" />
-                      <span className="text-[#D4AF37] text-[5px]">SECURE</span>
+                    <div className="flex items-center gap-1.5 font-semibold">
+                      <CheckCircle className="w-3 h-3 text-emerald-500" />
+                      <span className="text-[#2563EB] text-[6px]">SECURE</span>
                     </div>
                   </div>
 
                   {/* PWA App Body */}
                   <div className="flex-1 flex overflow-hidden">
-                    {/* Left Sidebar PWA Menu */}
-                    <div className="w-24 bg-[#060606] border-r border-[#D4AF37]/10 p-2 flex flex-col gap-2 select-none">
-                      <span className="font-display text-[7px] font-semibold text-[#D4AF37] tracking-widest pl-1">TN TODAY</span>
+                    {/* Left Sidebar Menu */}
+                    <div className="w-28 bg-gray-100 border-r border-gray-200 p-2.5 flex flex-col gap-2 select-none">
+                      <span className="font-display text-[8px] font-bold text-[#2563EB] tracking-widest pl-1">TN TODAY</span>
                       
-                      <div className="flex flex-col gap-1 text-[5.5px] font-mono text-gray-400">
-                        <span className="bg-[#D4AF37]/15 text-[#D4AF37] px-1.5 py-0.5 rounded pl-1">STATE FEED</span>
-                        <span className="hover:text-white px-1.5 py-0.5 rounded pl-1">SCHEMES DEPT</span>
-                        <span className="hover:text-white px-1.5 py-0.5 rounded pl-1">EMPLOYMENT</span>
-                        <span className="hover:text-white px-1.5 py-0.5 rounded pl-1">PUBLIC HEALTH</span>
-                        <span className="hover:text-white px-1.5 py-0.5 rounded pl-1">EDUCATION NEWS</span>
-                        <span className="hover:text-white px-1.5 py-0.5 rounded pl-1">BOOKMARKED</span>
+                      <div className="flex flex-col gap-1 text-[6.5px] font-mono text-gray-500 font-medium">
+                        <span className="bg-[#2563EB]/15 text-[#2563EB] px-2 py-1 rounded pl-1 font-semibold">STATE FEED</span>
+                        <span className="hover:text-[#111111] px-2 py-1 rounded pl-1">SCHEMES DEPT</span>
+                        <span className="hover:text-[#111111] px-2 py-1 rounded pl-1">EMPLOYMENT</span>
+                        <span className="hover:text-[#111111] px-2 py-1 rounded pl-1">PUBLIC HEALTH</span>
+                        <span className="hover:text-[#111111] px-2 py-1 rounded pl-1">EDUCATION NEWS</span>
+                        <span className="hover:text-[#111111] px-2 py-1 rounded pl-1">BOOKMARKED</span>
                       </div>
                     </div>
 
                     {/* Main Content Area */}
-                    <div className="flex-1 p-3 flex flex-col overflow-hidden">
-                      {/* Banner banner */}
-                      <div className="p-2 rounded-lg border border-[#D4AF37]/15 bg-[#D4AF37]/4 flex items-center justify-between mb-2">
+                    <div className="flex-1 p-3.5 flex flex-col overflow-hidden bg-white">
+                      <div className="p-2.5 rounded-xl border border-[#2563EB]/20 bg-[#2563EB]/5 flex items-center justify-between mb-3">
                         <div className="flex-1">
-                          <span className="text-[5px] font-mono text-[#D4AF37] uppercase tracking-[0.15em] block">PRODUCTION READY PWA</span>
-                          <h6 className="font-display text-[8px] text-white font-medium leading-none mt-0.5">Tamil Nadu State Circular Hub</h6>
+                          <span className="text-[6px] font-mono text-[#2563EB] uppercase tracking-[0.15em] font-bold block">PRODUCTION READY PWA</span>
+                          <h6 className="font-display text-[10px] text-[#111111] font-bold leading-none mt-0.5">Tamil Nadu State Circular Hub</h6>
                         </div>
-                        <span className="text-[6px] font-mono px-1.5 py-0.5 bg-[#D4AF37]/15 rounded border border-[#D4AF37]/20 text-[#D4AF37] shrink-0 font-bold uppercase tracking-widest">LIVE DIRECTORY</span>
+                        <span className="text-[6px] font-mono px-2 py-0.5 bg-[#2563EB]/20 rounded border border-[#2563EB]/30 text-[#2563EB] font-bold uppercase tracking-widest">LIVE DIRECTORY</span>
                       </div>
 
-                      {/* Web Grid Showcase Items */}
-                      <div className="grid grid-cols-2 gap-2 overflow-hidden flex-1">
-                        <div className="border border-white/5 rounded-lg p-2 bg-[#080808]">
-                          <span className="font-mono text-[5px] text-[#D4AF37] block">SCHEME TRACKER</span>
-                          <p className="font-display text-[7px] text-white leading-tight font-medium mt-1">Free laptop for college entrants program database launched</p>
-                          <div className="h-0.5 w-4 bg-amber-500 mt-2" />
+                      <div className="grid grid-cols-2 gap-2.5 overflow-hidden flex-1">
+                        <div className="border border-gray-200 rounded-xl p-2.5 bg-gray-50">
+                          <span className="font-mono text-[6px] text-[#2563EB] font-bold block">SCHEME TRACKER</span>
+                          <p className="font-display text-[8px] text-[#111111] leading-tight font-medium mt-1">Free laptop for college entrants program database launched</p>
+                          <div className="h-0.5 w-6 bg-[#2563EB] mt-2" />
                         </div>
-                        <div className="border border-white/5 rounded-lg p-2 bg-[#080808]">
-                          <span className="font-mono text-[5px] text-[#D4AF37] block">EXAMS SCHEDULER</span>
-                          <p className="font-display text-[7px] text-white leading-tight font-medium mt-1">State administrative exams dates schedule announced officially</p>
-                          <div className="h-0.5 w-4 bg-amber-500 mt-2" />
+                        <div className="border border-gray-200 rounded-xl p-2.5 bg-gray-50">
+                          <span className="font-mono text-[6px] text-[#2563EB] font-bold block">EXAMS SCHEDULER</span>
+                          <p className="font-display text-[8px] text-[#111111] leading-tight font-medium mt-1">State administrative exams dates schedule announced officially</p>
+                          <div className="h-0.5 w-6 bg-[#2563EB] mt-2" />
                         </div>
                       </div>
                     </div>
@@ -477,85 +356,75 @@ export default function FeaturedProjectSection() {
                 </div>
               </div>
 
-              {/* Laptop Keyboard Base */}
-              <div className="w-[490px] h-3 bg-gradient-to-b from-[#222] via-[#0b0b0b] to-[#040404] rounded-b-xl border-t border-white/10 shadow-[0_12px_24px_rgba(0,0,0,0.8)] relative z-20 flex items-center justify-center">
-                <span className="w-16 h-1 bg-[#1a1a1a] rounded-full border-t border-white/5" />
+              {/* Laptop Stand */}
+              <div className="w-[500px] h-3 bg-gray-200 rounded-b-xl border-t border-gray-300 shadow-lg relative z-20 flex items-center justify-center">
+                <span className="w-16 h-1 bg-gray-300 rounded-full border-t border-white/5" />
               </div>
 
-              {/* Laptop shadow reflection */}
-              <div className="w-[450px] h-6 bg-gradient-to-t from-transparent via-[#D4AF37]/10 to-transparent blur-md mt-1 pointer-events-none scale-y-[-0.6]" />
-              <p className="font-mono text-[9px] text-gray-500 tracking-[0.2em] uppercase">PROGRESSIVE WEB APP (PWA)</p>
-            </motion.div>
+              <p className="font-mono text-[10px] text-gray-600 tracking-[0.2em] uppercase mt-4 font-semibold">PROGRESSIVE WEB APP (PWA)</p>
+            </div>
           </div>
 
-          {/* DEVELOPMENT STATUS (Right Column of the Showcase) */}
+          {/* DEVELOPMENT STATUS (Right Column) */}
           <div className="lg:col-span-3 flex flex-col justify-center gap-6 z-10 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-8">
-            <h4 className="font-mono text-[9px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-2">DEVELOPMENT STATUS</h4>
+            <h4 className="font-mono text-[10px] tracking-[0.3em] text-[#7B2FF7] uppercase font-bold mb-1">DEVELOPMENT STATUS</h4>
             
-            {/* Status launching card */}
-            <div className="rounded-2xl border border-[#D4AF37]/25 bg-[#0a0a0a] p-4 flex flex-col justify-center items-start gap-3 relative shadow-[0_8px_32px_rgba(212,175,55,0.05)]">
-              {/* Gold pulsing backdrop circle */}
-              <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_12px_#D4AF37] animate-ping" />
-              <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_#D4AF37]" />
+            <div className="rounded-2xl border border-[#2563EB]/30 bg-gray-50 p-5 flex flex-col justify-center items-start gap-2 shadow-sm relative">
+              <div className="absolute top-5 right-5 w-2.5 h-2.5 rounded-full bg-[#2563EB] shadow-[0_0_10px_#2563EB]" />
               
               <div>
-                <span className="font-mono text-[8px] text-gray-400 uppercase tracking-widest block">RELEASE ENGINE</span>
-                <span className="font-display text-lg font-light text-white uppercase tracking-wider block mt-0.5">Launches Soon</span>
+                <span className="font-mono text-[9px] text-gray-500 uppercase tracking-widest block font-medium">RELEASE ENGINE</span>
+                <span className="font-display text-xl font-bold text-[#111111] uppercase tracking-wide block mt-1">Launches Soon</span>
               </div>
             </div>
 
-            {/* Platform indicators */}
             <div className="flex flex-col gap-4">
-              <div className="flex justify-between items-center border-b border-white/5 pb-2">
+              <div className="flex justify-between items-center border-b border-gray-200 pb-3">
                 <div>
-                  <span className="font-mono text-[8px] text-gray-500 uppercase tracking-widest block">PROGRESSIVE WEB APP</span>
-                  <span className="font-display text-xs text-white uppercase tracking-wide">Production Ready</span>
+                  <span className="font-mono text-[9px] text-gray-500 uppercase tracking-widest block font-medium">PROGRESSIVE WEB APP</span>
+                  <span className="font-display text-xs text-[#111111] uppercase tracking-wide font-semibold">Production Ready</span>
                 </div>
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 flex items-center justify-center shadow-[0_0_8px_#10b981]" />
+                <div className="w-3 h-3 rounded-full bg-emerald-500 flex items-center justify-center shadow-[0_0_10px_#10b981]" />
               </div>
 
-              <div className="flex justify-between items-center border-b border-white/5 pb-2">
+              <div className="flex justify-between items-center border-b border-gray-200 pb-3">
                 <div>
-                  <span className="font-mono text-[8px] text-gray-500 uppercase tracking-widest block">ANDROID APP</span>
-                  <span className="font-display text-xs text-white uppercase tracking-wide">Coming Very Soon</span>
+                  <span className="font-mono text-[9px] text-gray-500 uppercase tracking-widest block font-medium">ANDROID APP</span>
+                  <span className="font-display text-xs text-[#111111] uppercase tracking-wide font-semibold">Coming Very Soon</span>
                 </div>
-                <div className="w-2.5 h-2.5 rounded-full bg-amber-500 flex items-center justify-center shadow-[0_0_8px_#f59e0b]" />
+                <div className="w-3 h-3 rounded-full bg-amber-500 flex items-center justify-center shadow-[0_0_10px_#f59e0b]" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 4. Statistics Sub-Grid Counters */}
+      {/* 4. Statistics Sub-Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-28">
         {statistics.map((stat, idx) => (
           <div 
             key={idx}
-            className="rounded-3xl border border-white/5 bg-[#080808]/50 p-6 md:p-8 flex flex-col items-center justify-center text-center shadow-[0_8px_30px_rgba(0,0,0,0.4)] relative overflow-hidden group select-none hover:border-[#D4AF37]/20 transition-colors duration-300"
+            className="rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 flex flex-col items-center justify-center text-center shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-[#7B2FF7]/40"
           >
-            {/* Subtle glow hover layer */}
-            <div className="absolute inset-0 bg-[#D4AF37]/1 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="font-display text-3xl md:text-4xl lg:text-5xl font-light mb-2">
+            <div className="font-display text-3xl md:text-5xl font-bold mb-2">
               <AnimatedCounter value={stat.value} />
             </div>
             
-            <span className="font-mono text-[9px] tracking-[0.25em] text-gray-400 group-hover:text-[#D4AF37] uppercase transition-colors duration-300">
+            <span className="font-mono text-[10px] tracking-[0.25em] text-gray-600 uppercase font-semibold">
               {stat.label}
             </span>
           </div>
         ))}
       </div>
 
-      {/* 5. Beautiful Twelve Animated Feature Cards Grid */}
+      {/* 5. Features Cards Grid */}
       <div className="mb-28">
         <div className="text-center mb-16">
-          <span className="font-mono text-[9px] tracking-[0.6em] text-[#D4AF37] uppercase block mb-2">FEATURES GRID</span>
-          <h3 className="font-display text-3xl font-light text-white uppercase tracking-tight">ENGINEERED TO SPECIFICATION</h3>
-          <div className="h-0.5 w-12 bg-[#D4AF37] mx-auto mt-3" />
+          <span className="font-mono text-[10px] tracking-[0.6em] text-[#2563EB] uppercase font-semibold block mb-2">FEATURES GRID</span>
+          <h3 className="font-display text-3xl font-bold text-white uppercase tracking-tight">ENGINEERED TO SPECIFICATION</h3>
+          <div className="h-0.5 w-16 bg-[#7B2FF7] mx-auto mt-4" />
         </div>
 
-        {/* 12 Features grid using TiltCard */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {features.map((feat, idx) => {
             const Icon = feat.icon;
@@ -563,20 +432,17 @@ export default function FeaturedProjectSection() {
               <TiltCard
                 key={idx}
                 index={idx}
-                className="flex flex-col gap-4 min-h-[220px] justify-between text-left border border-white/5 group bg-[#080808]/90"
+                className="flex flex-col gap-4 min-h-[220px] justify-between text-left"
               >
-                {/* Glow backlight bubble inside TiltCard */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-[#D4AF37]/1 rounded-full blur-[40px] group-hover:bg-[#D4AF37]/4 transition-colors duration-500" />
-
-                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/15 group-hover:bg-[#D4AF37] group-hover:text-black group-hover:border-[#D4AF37] transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white border border-white/20 transition-colors duration-200 group-hover:bg-white group-hover:text-black shrink-0">
                   <Icon className="w-5 h-5" />
                 </div>
 
                 <div className="flex flex-col gap-2 mt-4">
-                  <h4 className="font-display text-sm font-medium leading-tight tracking-wide text-white group-hover:text-[#D4AF37] transition-colors">
+                  <h4 className="font-display text-sm font-bold leading-tight tracking-wide text-[#111111]">
                     {feat.title}
                   </h4>
-                  <p className="font-sans text-[11px] text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
+                  <p className="font-sans text-xs text-gray-600 leading-relaxed font-normal">
                     {feat.desc}
                   </p>
                 </div>
@@ -586,59 +452,41 @@ export default function FeaturedProjectSection() {
         </div>
       </div>
 
-      {/* 6. High-contrast Call to Action Section */}
-      <div className="relative rounded-[40px] border border-[#D4AF37]/20 bg-[#070707]/90 p-8 sm:p-12 md:p-16 text-center shadow-[0_15px_60px_rgba(0,0,0,0.6)] overflow-hidden">
-        {/* Dynamic ambient halo backlights */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
-        
-        {/* Sparkle decorative element */}
+      {/* 6. Call to Action Section */}
+      <div className="relative rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-8 sm:p-14 md:p-16 text-center shadow-2xl">
         <div className="flex justify-center mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20">
-            <Sparkles className="w-5 h-5 animate-pulse" />
+          <div className="w-12 h-12 rounded-2xl bg-[#7B2FF7]/10 flex items-center justify-center text-[#7B2FF7] border border-[#7B2FF7]/30">
+            <Sparkles className="w-6 h-6" />
           </div>
         </div>
 
-        <motion.h3 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-white uppercase mb-4"
-        >
+        <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white uppercase mb-4">
           INTERESTED IN BUILDING <br />
-          <span className="text-[#D4AF37] font-semibold">SOMETHING SIMILAR?</span>
-        </motion.h3>
+          <span className="text-[#7B2FF7]">SOMETHING SIMILAR?</span>
+        </h3>
 
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.8 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="font-sans text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto mb-10"
-        >
+        <p className="font-sans text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto mb-10 font-normal">
           Whether you need a modern website, Android application, Progressive Web App, or custom software solution, Xentriq Studio can help transform your ideas into reality.
-        </motion.p>
+        </p>
 
-        {/* Action Buttons styled like the standard elements */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pointer-events-auto">
-          {/* Scroll back to Portfolio block or a general action */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           <button 
             onClick={() => {
               const el = document.getElementById('about');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-display text-xs tracking-widest uppercase font-semibold text-[#D4AF37] hover:text-white bg-black/60 border border-[#D4AF37]/35 hover:border-[#D4AF37] transition-all duration-300 cursor-pointer shadow-[0_4px_30px_rgba(212,175,55,0.05)] hover:shadow-[0_0_20px_rgba(212,175,55,0.15)] flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-display text-xs tracking-widest uppercase font-semibold text-gray-300 hover:text-white bg-white/5 border border-white/10 hover:border-[#7B2FF7] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
           >
             <span>View Portfolio</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
 
-          {/* Solid Golden Start Project triggering standard Contact form */}
           <button 
             onClick={scrollToContact}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-display text-xs tracking-widest uppercase font-semibold text-black bg-gradient-to-r from-[#D4AF37] via-[#F5DF88] to-[#C59B27] hover:scale-[1.03] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.55)] cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-display text-xs tracking-widest uppercase font-semibold text-white bg-[#7B2FF7] hover:bg-[#9D4EDD] transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
           >
             <span>Start Your Project</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-4 h-4" />
           </button>
         </div>
       </div>

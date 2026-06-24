@@ -22,8 +22,8 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#020202] border-t border-white/5 pt-20 pb-10 px-6 md:px-10 z-15">
       
-      {/* Decorative Golden Top Line */}
-      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/35 to-transparent" />
+      {/* Decorative Purple Top Line */}
+      <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#7B2FF7]/35 to-transparent" />
 
       <div className="max-w-7xl mx-auto flex flex-col gap-12">
         {/* Upper Column rows */}
@@ -38,7 +38,7 @@ export default function Footer() {
               <Logo size={48} />
               <div className="flex flex-col">
                 <span className="font-display text-base font-semibold tracking-[0.2em] text-white">XENTRIQ</span>
-                <span className="font-mono text-[8px] tracking-[0.45em] text-[#D4AF37] font-bold">STUDIO</span>
+                <span className="font-mono text-[8px] tracking-[0.45em] text-[#7B2FF7] font-bold">STUDIO</span>
               </div>
             </div>
 
@@ -48,16 +48,16 @@ export default function Footer() {
 
             {/* Social icons */}
             <div className="flex items-center gap-4 mt-2">
-              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#7B2FF7] hover:border-[#7B2FF7]/50 transition-colors">
                 <Twitter className="w-4 h-4" />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#7B2FF7] hover:border-[#7B2FF7]/50 transition-colors">
                 <Github className="w-4 h-4" />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#7B2FF7] hover:border-[#7B2FF7]/50 transition-colors">
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#D4AF37] hover:border-[#D4AF37]/50 transition-colors">
+              <a href="#" className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#7B2FF7] hover:border-[#7B2FF7]/50 transition-colors">
                 <MessageSquare className="w-4 h-4" />
               </a>
             </div>
@@ -65,7 +65,7 @@ export default function Footer() {
 
           {/* Quick links catalog navigation */}
           <div className="md:col-span-4 flex flex-col gap-4">
-            <h4 className="font-mono text-[10px] tracking-[0.3em] font-bold text-[#D4AF37] uppercase">
+            <h4 className="font-mono text-[10px] tracking-[0.3em] font-bold text-[#7B2FF7] uppercase">
               INDEX REGISTRY
             </h4>
             
@@ -74,7 +74,7 @@ export default function Footer() {
                 <button
                   key={link.id}
                   onClick={() => handleScrollTo(link.id)}
-                  className="font-sans text-[11px] text-gray-400 hover:text-[#D4AF37] transition-colors text-left font-semibold uppercase tracking-wider cursor-pointer"
+                  className="font-sans text-[11px] text-gray-400 hover:text-[#7B2FF7] transition-colors text-left font-semibold uppercase tracking-wider cursor-pointer"
                 >
                   {link.label}
                 </button>
@@ -84,7 +84,7 @@ export default function Footer() {
 
           {/* Core corporate contacts info */}
           <div className="md:col-span-3 flex flex-col gap-4">
-            <h4 className="font-mono text-[10px] tracking-[0.3em] font-bold text-[#D4AF37] uppercase">
+            <h4 className="font-mono text-[10px] tracking-[0.3em] font-bold text-[#7B2FF7] uppercase">
               GLOBAL OFFICE
             </h4>
 
@@ -96,13 +96,13 @@ export default function Footer() {
                 className="flex items-center gap-3 hover:text-white transition-colors"
                 title="Chat with us on WhatsApp"
               >
-                <div className="w-4 h-4 rounded-full bg-[#D4AF37]/10 flex items-center justify-center shrink-0">
-                  <span className="text-[8px] font-bold text-[#D4AF37]">W</span>
+                <div className="w-4 h-4 rounded-full bg-[#7B2FF7]/10 flex items-center justify-center shrink-0">
+                  <span className="text-[8px] font-bold text-[#7B2FF7]">W</span>
                 </div>
                 <span>WhatsApp: +91 78249 18457</span>
               </a>
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#D4AF37] shrink-0" />
+                <Mail className="w-4 h-4 text-[#7B2FF7] shrink-0" />
                 <span>admin@xentriqstudio.com</span>
               </div>
             </div>
@@ -123,7 +123,7 @@ export default function Footer() {
                 window.dispatchEvent(new Event('popstate')); 
                 window.scrollTo({ top: 0, behavior: 'smooth' }); 
               }} 
-              className="hover:text-[#D4AF37] transition-colors"
+              className="hover:text-[#7B2FF7] transition-colors"
             >
               Privacy Policy
             </a>
@@ -135,7 +135,7 @@ export default function Footer() {
                 window.dispatchEvent(new Event('popstate')); 
                 window.scrollTo({ top: 0, behavior: 'smooth' }); 
               }} 
-              className="hover:text-[#D4AF37] transition-colors"
+              className="hover:text-[#7B2FF7] transition-colors"
             >
               Terms & Conditions
             </a>
@@ -155,7 +155,7 @@ export default function Footer() {
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 } 
               }} 
-              className="hover:text-[#D4AF37] transition-colors"
+              className="hover:text-[#7B2FF7] transition-colors"
             >
               Contact
             </a>

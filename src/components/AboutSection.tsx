@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { ArrowRight, Layers2, Sparkles, Network } from 'lucide-react';
+import { Layers2, Sparkles, Network } from 'lucide-react';
 import TiltCard from './TiltCard';
 
 export default function AboutSection() {
@@ -20,69 +19,35 @@ export default function AboutSection() {
         {/* Left Column: Heading and Storyteller */}
         <div className="lg:col-span-5 flex flex-col gap-6">
           <div>
-            <motion.span 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 0.65, scale: 1 }}
-              viewport={{ once: true }}
-              className="font-mono text-[10px] tracking-[0.6em] text-[#D4AF37] uppercase"
-            >
+            <span className="font-mono text-[10px] tracking-[0.6em] text-[#7B2FF7] uppercase font-semibold block mb-2">
               WHO WE ARE
-            </motion.span>
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="mt-2 font-display text-4xl md:text-5xl font-light tracking-tight text-white uppercase leading-tight"
-            >
+            </span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight text-white uppercase leading-tight">
               TRANSCENDING THE <br />
-              <span className="text-[#D4AF37] font-semibold">DIGITAL FRONTIER</span>
-            </motion.h2>
+              <span className="text-[#7B2FF7]">DIGITAL FRONTIER</span>
+            </h2>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="w-full h-[1px] bg-gradient-to-r from-[#D4AF37]/50 to-transparent my-2"
-          />
+          <div className="w-full h-[1px] bg-gradient-to-r from-[#7B2FF7]/50 to-transparent my-2" />
 
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 0.8 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="font-sans text-sm text-gray-300 leading-relaxed max-w-md"
-          >
+          <p className="font-sans text-sm sm:text-base text-gray-300 leading-relaxed max-w-md font-normal">
             Xentriq Studio is a modern, high-end software development agency focused entirely on engineering premium digital products. We combine luxury visual storytelling, pixel-level front-ends, and highly scalable cloud computing architectures to secure digital dominance for trailblazing brands.
-          </motion.p>
+          </p>
         </div>
 
         {/* Right Column: Editorial Paragraphs and Capability Bento List */}
         <div className="lg:col-span-7 flex flex-col gap-10">
-          <div className="flex flex-col gap-6">
-            <motion.h3 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="font-display text-xl md:text-2xl font-light text-white leading-relaxed border-l-2 border-[#D4AF37] pl-6"
-            >
+          <div className="flex flex-col gap-6 p-8 rounded-[24px] bg-white/[0.03] border border-white/10 backdrop-blur-xl">
+            <h3 className="font-display text-xl md:text-2xl font-semibold text-white leading-relaxed border-l-2 border-[#7B2FF7] pl-6">
               “We combine creativity, custom engineering, and artificial intelligence to deliver high-quality, memorable experiences.”
-            </motion.h3>
+            </h3>
 
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 0.6 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="font-sans text-xs text-gray-400 leading-relaxed"
-            >
+            <p className="font-sans text-xs sm:text-sm text-gray-400 leading-relaxed">
               Whether we are preparing immersive three-dimensional spatial real estate, optimizing robust progressive web store checkouts, or structuring autonomous AI agents to manage complex corporate data structures, we treat performance and aesthetics as our core parameters.
-            </motion.p>
+            </p>
           </div>
 
-          {/* Capabilities bento boxes */}
+          {/* Capabilities Spatial UI cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {capabilities.map((item, index) => {
               const Icon = item.icon;
@@ -90,16 +55,16 @@ export default function AboutSection() {
                 <TiltCard
                   key={index}
                   index={index}
-                  className="p-6 flex flex-col gap-3 h-full justify-between"
+                  className="p-6 flex flex-col gap-4 h-full justify-between"
                 >
                   <div className="flex flex-col gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]">
+                    <div className="w-10 h-10 rounded-xl bg-[#7B2FF7]/10 flex items-center justify-center text-[#7B2FF7] border border-[#7B2FF7]/20">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h4 className="font-display text-sm font-semibold tracking-wide text-white">
+                    <h4 className="font-display text-sm font-bold tracking-wide text-white mt-1">
                       {item.title}
                     </h4>
-                    <p className="font-sans text-[11px] text-gray-400 leading-relaxed">
+                    <p className="font-sans text-xs text-gray-400 leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -108,8 +73,8 @@ export default function AboutSection() {
             })}
           </div>
 
-          {/* Slogans grid container */}
-          <div className="flex flex-wrap gap-x-8 gap-y-3 font-mono text-[9px] tracking-[0.25em] text-[#D4AF37] font-semibold uppercase">
+          {/* Slogans container */}
+          <div className="flex flex-wrap gap-x-8 gap-y-3 font-mono text-[10px] tracking-[0.25em] text-[#7B2FF7] font-bold uppercase pt-2">
             <span>• Websites</span>
             <span>• Mobile Apps</span>
             <span>• Web Apps</span>

@@ -1,7 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Send, CheckCircle2, CloudLightning } from 'lucide-react';
-import CardParticles from './CardParticles';
+import React, { useState } from 'react';
+import { Send, CheckCircle2 } from 'lucide-react';
 
 export default function ContactSection() {
   const [form, setForm] = useState({
@@ -17,19 +15,6 @@ export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  
-  // Track hover and coordinate details for contact container interactive particles
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const relativeX = e.clientX - rect.left;
-    const relativeY = e.clientY - rect.top;
-    setMousePos({ x: relativeX, y: relativeY });
-  };
 
   const projectTypes = [
     'Website Development',
@@ -68,7 +53,6 @@ export default function ContactSection() {
 
       if (response.ok && data.success) {
         setSubmitted(true);
-        // Reset form
         setForm({
           name: '',
           email: '',
@@ -79,11 +63,10 @@ export default function ContactSection() {
           message: ''
         });
       } else {
-        setErrorMsg(data.error || 'The Xentriq connection pipeline timed out. Please try again.');
+        setErrorMsg(data.error || 'The connection pipeline timed out. Please try again.');
       }
     } catch (err: any) {
-      console.error('Contact submit error:', err);
-      setErrorMsg('Network error connecting to Xentriq pipelines. Please verify connection.');
+      setErrorMsg('Network error connecting to pipelines. Please verify connection.');
     } finally {
       setLoading(false);
     }
@@ -96,215 +79,153 @@ export default function ContactSection() {
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
-        {/* Left column: High end text briefings */}
+        {/* Left column: Text briefings */}
         <div className="lg:col-span-4 flex flex-col gap-6">
           <div>
-            <motion.span 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 0.65, scale: 1 }}
-              viewport={{ once: true }}
-              className="font-mono text-[10px] tracking-[0.6em] text-[#D4AF37] uppercase"
-            >
+            <span className="font-mono text-[10px] tracking-[0.6em] text-white uppercase">
               LAUNCH PIPELINE
-            </motion.span>
-            <motion.h2 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="mt-2 font-display text-4xl font-light tracking-tight text-white uppercase leading-tight"
-            >
+            </span>
+            <h2 className="mt-2 font-display text-4xl font-bold tracking-tight text-white uppercase leading-tight">
               LET'S BUILD <br />
-              <span className="text-[#D4AF37] font-semibold">SOMETHING</span> <br />
+              <span className="text-white">SOMETHING</span> <br />
               AMAZING.
-            </motion.h2>
+            </h2>
           </div>
 
-          <p className="font-sans text-xs text-gray-400 leading-relaxed">
+          <p className="font-sans text-xs text-gray-300 leading-relaxed">
             Ready to initiate a premium digital experience? Complete our secure project onboarding brief, and one of our master architects will contact you within 12 hours.
           </p>
 
-          <div className="flex flex-col gap-4 mt-4 font-mono text-[10px] tracking-widest text-[#D4AF37] font-semibold uppercase">
+          <div className="flex flex-col gap-4 mt-4 font-mono text-[10px] tracking-widest text-white font-bold uppercase">
             <span>• ADMIN@XENTRIQSTUDIO.COM</span>
             <a 
               href="https://wa.me/7824918457?text=Hi%20Xentriq%20Studio%20Team,%20I'm%20interested%20in%20partnering%20on%20a%20luxury%20digital%20solution." 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center gap-2 hover:text-white transition-all duration-300 cursor-pointer group"
+              className="flex items-center gap-2 hover:text-gray-300 transition-all cursor-pointer"
             >
               <span>• WHATSAPP CHAT: +91 78249 18457</span>
-              <span className="text-[7px] tracking-normal font-bold bg-[#D4AF37]/10 text-[#D4AF37] px-1.5 py-0.5 rounded-full border border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/30 group-hover:text-white transition-colors">SECURE LIVE</span>
             </a>
           </div>
         </div>
 
-        {/* Right column: The Contact Form */}
-        <div 
-          ref={containerRef}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="lg:col-span-8 p-10 rounded-3xl bg-[#080808]/85 border border-[#D4AF37]/15 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
-        >
-          {/* Custom 3D active background particles */}
-          <CardParticles isHovered={isHovered} mouseX={mousePos.x} mouseY={mousePos.y} count={45} />
+        {/* Right column: Contact Form */}
+        <div className="lg:col-span-8 p-10 rounded-3xl bg-white/[0.03] backdrop-blur-xl border border-white/10 relative overflow-hidden shadow-sm">
           
-          {/* Accent golden background blur */}
-          <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#D4AF37]/3 rounded-full blur-3xl pointer-events-none" />
+          {/* Subtle blue background glow */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#2563EB]/5 rounded-full blur-[100px] pointer-events-none" />
 
-          <AnimatePresence mode="wait">
-            {!submitted ? (
-              <motion.form 
-                key="contact-form"
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                onSubmit={handleSubmit}
-                className="relative z-10 flex flex-col gap-6"
-              >
-                {/* Dual field inputs (Name & Email) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Your Full Name *</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      placeholder="e.g. Sterling Cooper"
-                      className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/30 focus:border-[#D4AF37] text-sm text-white focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Email Address *</label>
-                    <input 
-                      type="email" 
-                      required
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      placeholder="e.g. admin@sterling.com"
-                      className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/30 focus:border-[#D4AF37] text-sm text-white focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Dual field inputs (Company & Phone) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Company / Organization</label>
-                    <input 
-                      type="text" 
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      placeholder="e.g. Sterling Realty Group"
-                      className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/30 focus:border-[#D4AF37] text-sm text-white focus:outline-none transition-colors"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      placeholder="e.g. +1 (555) 019-2834"
-                      className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/30 focus:border-[#D4AF37] text-sm text-white focus:outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Dropdowns selectors (Project Type & Budget) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Project Type Scope</label>
-                    <select 
-                      value={form.projectType}
-                      onChange={(e) => setForm({ ...form, projectType: e.target.value })}
-                      className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#D4AF37] transition-colors appearance-none cursor-pointer"
-                    >
-                      {projectTypes.map((t) => (
-                        <option key={t} value={t} className="bg-[#0c0c0c] text-white py-2">{t}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col gap-1.5">
-                    <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Target Budget Bracket</label>
-                    <select 
-                      value={form.budget}
-                      onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                      className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#D4AF37] transition-colors appearance-none cursor-pointer"
-                    >
-                      {budgets.map((b) => (
-                        <option key={b} value={b} className="bg-[#0c0c0c] text-white py-2">{b}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* Project Brief message textarea */}
+          {!submitted ? (
+            <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[9px] tracking-wider text-gray-400 uppercase font-bold">Detailed Project Summary *</label>
-                  <textarea 
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  <label className="font-mono text-[9px] tracking-wider text-gray-500 uppercase font-bold">Your Full Name *</label>
+                  <input 
+                    type="text" 
                     required
-                    rows={4}
-                    placeholder="Briefly describe what you are looking to create: core features, performance objectives..."
-                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/30 focus:border-[#D4AF37] text-sm text-white focus:outline-none transition-colors resize-none"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    placeholder="Sterling Cooper"
+                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-white text-sm text-white focus:outline-none transition-colors"
                   />
                 </div>
-                {/* Master solid-gold action submit button */}
-                <div className="flex flex-col gap-3">
-                  {errorMsg && (
-                    <span className="font-mono text-[10px] tracking-wider text-red-400 uppercase font-semibold">
-                      ⚠️ {errorMsg}
-                    </span>
-                  )}
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full mt-2 px-8 py-3.5 rounded-xl font-display text-xs tracking-widest uppercase font-semibold text-black bg-gradient-to-r from-[#D4AF37] via-[#F5DF88] to-[#C59B27] hover:scale-[1.01] transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_35px_rgba(212,175,55,0.55)] cursor-pointer disabled:opacity-50"
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[9px] tracking-wider text-gray-500 uppercase font-bold">Email Address *</label>
+                  <input 
+                    type="email" 
+                    required
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    placeholder="admin@sterling.com"
+                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-white text-sm text-white focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[9px] tracking-wider text-gray-500 uppercase font-bold">Company / Organization</label>
+                  <input 
+                    type="text" 
+                    value={form.company}
+                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    placeholder="Sterling Realty"
+                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-white text-sm text-white focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[9px] tracking-wider text-gray-500 uppercase font-bold">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    placeholder="+1 (555) 019-2834"
+                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-white text-sm text-white focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[9px] tracking-wider text-gray-500 uppercase font-bold">Project Type</label>
+                  <select 
+                    value={form.projectType}
+                    onChange={(e) => setForm({ ...form, projectType: e.target.value })}
+                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer"
                   >
-                    {loading ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                        <span>Transmitting Files...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
-                        <span>Start Your Project</span>
-                      </>
-                    )}
-                  </button>
+                    {projectTypes.map((t) => <option key={t} value={t} className="bg-gray-900 text-white">{t}</option>)}
+                  </select>
                 </div>
-              </motion.form>
-            ) : (
-              <motion.div 
-                key="contact-success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="relative z-10 flex flex-col items-center justify-center py-12 text-center gap-4"
+
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[9px] tracking-wider text-gray-300 uppercase font-bold">Budget</label>
+                  <select 
+                    value={form.budget}
+                    onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                    className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer"
+                  >
+                    {budgets.map((b) => <option key={b} value={b} className="bg-gray-900 text-white">{b}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="font-mono text-[9px] tracking-wider text-gray-500 uppercase font-bold">Detailed Project Summary *</label>
+                <textarea 
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  required
+                  rows={4}
+                  placeholder="Describe your vision..."
+                  className="w-full px-5 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-white text-sm text-white focus:outline-none transition-colors resize-none"
+                />
+              </div>
+
+              {errorMsg && <span className="font-mono text-[10px] text-red-500">⚠️ {errorMsg}</span>}
+              
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full mt-2 px-8 py-3.5 rounded-xl font-display text-xs tracking-widest uppercase font-bold text-black bg-white hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
               >
-                <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] mb-2 animate-bounce">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h3 className="font-display text-2xl font-light tracking-wide text-white uppercase">
-                  TRANSMISSION MATCHED!
-                </h3>
-                <p className="font-sans text-xs text-gray-400 max-w-sm leading-relaxed">
-                  Your project blueprint coordinates are securely saved and dispatched to <strong className="text-[#D4AF37]">admin@xentriqstudio.com</strong>. A chief architect will contact you within 12 hours.
-                </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-6 px-6 py-2 rounded-full border border-white/10 hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 font-mono text-[9px] tracking-widest text-[#D4AF37] uppercase transition-all cursor-pointer"
-                >
-                  Edit Information
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                {loading ? 'Transmitting...' : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>Start Your Project</span>
+                  </>
+                )}
+              </button>
+            </form>
+          ) : (
+            <div className="py-12 text-center flex flex-col items-center gap-4">
+              <CheckCircle2 className="w-12 h-12 text-white" />
+              <h3 className="font-display text-2xl font-bold text-white uppercase">TRANSMISSION MATCHED!</h3>
+              <p className="font-sans text-xs text-gray-300">Your brief is dispatched. We'll contact you within 12 hours.</p>
+              <button onClick={() => setSubmitted(false)} className="mt-4 text-white text-xs font-mono uppercase underline">Edit Brief</button>
+            </div>
+          )}
         </div>
       </div>
     </section>

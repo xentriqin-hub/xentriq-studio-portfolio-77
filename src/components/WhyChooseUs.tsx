@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import * as Icons from 'lucide-react';
 import { comparisonMetrics } from '../data';
 import TiltCard from './TiltCard';
@@ -17,24 +16,13 @@ export default function WhyChooseUs() {
     >
       {/* Editorial Header */}
       <div className="text-center mb-20">
-        <motion.span 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 0.65, scale: 1 }}
-          viewport={{ once: true }}
-          className="font-mono text-[10px] tracking-[0.6em] text-[#D4AF37] uppercase"
-        >
+        <span className="font-mono text-[10px] tracking-[0.6em] text-white uppercase">
           why choose us
-        </motion.span>
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mt-2 font-display text-3xl md:text-5xl font-light tracking-tight text-white uppercase"
-        >
-          THE BENCHMARK OF <span className="text-[#D4AF37] font-semibold">SUPERIORITY</span>
-        </motion.h2>
-        <div className="h-0.5 w-24 bg-[#D4AF37] mx-auto mt-4" />
+        </span>
+        <h2 className="mt-2 font-display text-3xl md:text-5xl font-bold tracking-tight text-white uppercase">
+          THE BENCHMARK OF <span className="text-white font-semibold">SUPERIORITY</span>
+        </h2>
+        <div className="h-0.5 w-24 bg-white mx-auto mt-4" />
       </div>
 
       {/* Bento Differentiator Grid */}
@@ -45,15 +33,12 @@ export default function WhyChooseUs() {
             index={idx}
             className="flex flex-col justify-between min-h-[220px]"
           >
-            {/* Animated Glow overlay */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/2 rounded-full blur-3xl group-hover:bg-[#D4AF37]/5 transition-all" />
-
-            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/20 group-hover:bg-[#D4AF37] group-hover:text-black group-hover:border-[#D4AF37] transition-all duration-300">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white border border-white/20 group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-300">
               <MagicIcon name={item.icon} className="w-5 h-5" />
             </div>
 
             <div className="mt-6">
-              <h3 className="font-display text-lg font-medium tracking-wide text-white group-hover:text-[#D4AF37] transition-colors mb-2">
+              <h3 className="font-display text-lg font-bold tracking-wide text-white mb-2">
                 {item.title}
               </h3>
               <p className="font-sans text-[11px] text-gray-400 leading-relaxed">

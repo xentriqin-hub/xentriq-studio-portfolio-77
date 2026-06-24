@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
-import ThreeCanvas from './components/ThreeCanvas';
-import Loader from './components/Loader';
 import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
 import AboutSection from './components/AboutSection';
 import FeaturedProjectSection from './components/FeaturedProjectSection';
-import TechnologiesSection from './components/TechnologiesSection';
 import ProcessSection from './components/ProcessSection';
 import WhyChooseUs from './components/WhyChooseUs';
 import ContactSection from './components/ContactSection';
@@ -17,7 +14,6 @@ import PrivacyPolicySection from './components/PrivacyPolicySection';
 import TermsAndConditionsSection from './components/TermsAndConditionsSection';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   useEffect(() => {
@@ -80,58 +76,54 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-[#020202] text-white selection:bg-[#D4AF37]/35 selection:text-white">
-      {/* Dynamic Cinematic Splasher loading page */}
-      {loading && <Loader onFinish={() => setLoading(false)} />}
-
-      {/* Floating 3D WebGL Back Canvas Space */}
-      <ThreeCanvas />
+    <div className="relative w-full min-h-screen bg-[#050505] text-white selection:bg-[#7B2FF7]/30 selection:text-[#7B2FF7]">
+      {/* Background Gradient Blobs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#7B2FF7]/20 rounded-full blur-[150px]" />
+        <div className="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] bg-[#9D4EDD]/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-[-10%] left-[10%] w-[40vw] h-[40vw] bg-[#4C1D95]/20 rounded-full blur-[150px]" />
+      </div>
 
       {/* The main high-fidelity user interface block */}
-      {!loading && (
-        <div className="relative z-10 w-full flex flex-col">
-          {/* Header Bar Navigation */}
-          <Navbar />
+      <div className="relative z-10 w-full flex flex-col">
+        {/* Header Bar Navigation */}
+        <Navbar />
 
-          {currentPath === '/privacy' ? (
-            <PrivacyPolicySection onBack={() => navigateTo('/')} />
-          ) : currentPath === '/terms' ? (
-            <TermsAndConditionsSection onBack={() => navigateTo('/')} />
-          ) : (
-            <main className="w-full flex flex-col">
-              {/* Cinematic Landing Screen */}
-              <HeroSection />
+        {currentPath === '/privacy' ? (
+          <PrivacyPolicySection onBack={() => navigateTo('/')} />
+        ) : currentPath === '/terms' ? (
+          <TermsAndConditionsSection onBack={() => navigateTo('/')} />
+        ) : (
+          <main className="w-full flex flex-col">
+            {/* Cinematic Landing Screen */}
+            <HeroSection />
 
-              {/* Structured Solution Services */}
-              <ServicesSection />
+            {/* Structured Solution Services */}
+            <ServicesSection />
 
-              {/* Storyteller Studio Overview */}
-              <AboutSection />
+            {/* Storyteller Studio Overview */}
+            <AboutSection />
 
-              {/* Flagship Featured Government News Application */}
-              <FeaturedProjectSection />
+            {/* Flagship Featured Government News Application */}
+            <FeaturedProjectSection />
 
-              {/* Circular Orbiting Tools Stack */}
-              <TechnologiesSection />
+            {/* Methodical Timeline Deliveries */}
+            <ProcessSection />
 
-              {/* Methodical Timeline Deliveries */}
-              <ProcessSection />
+            {/* Comparative Bento Supremacy Boxes */}
+            <WhyChooseUs />
 
-              {/* Comparative Bento Supremacy Boxes */}
-              <WhyChooseUs />
+            {/* Secure CRM Launchpad Contact Onboarding */}
+            <ContactSection />
+          </main>
+        )}
 
-              {/* Secure CRM Launchpad Contact Onboarding */}
-              <ContactSection />
-            </main>
-          )}
+        {/* Minimal Corporate Footer */}
+        <Footer />
 
-          {/* Minimal Corporate Footer */}
-          <Footer />
-
-          {/* Golden Interactive floating WhatsApp trigger */}
-          <WhatsAppButton />
-        </div>
-      )}
+        {/* Golden Interactive floating WhatsApp trigger */}
+        <WhatsAppButton />
+      </div>
     </div>
   );
 }

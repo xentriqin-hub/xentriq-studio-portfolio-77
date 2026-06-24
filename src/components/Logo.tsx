@@ -17,7 +17,7 @@ export default function Logo({ className = '', size = 48, glow = true }: LogoPro
       }}
     >
       <img
-        src="https://i.ibb.co/cct88CtX/Chat-GPT-Image-Jun-22-2026-09-33-16-AM.png"
+        src="https://i.ibb.co/Y7kh7Vnc/xentriqstudio.png"
         alt="Xentriq Studio Logo"
         referrerPolicy="no-referrer"
         className="w-full h-full object-cover select-none scale-[1.25] translate-y-[11%] transition-transform duration-300"

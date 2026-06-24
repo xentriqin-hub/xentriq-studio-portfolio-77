@@ -66,16 +66,16 @@ async function sendContactEmail(data: {
           max-width: 600px;
           margin: 0 auto;
           background-color: #070707;
-          border: 1px solid #D4AF37;
+          border: 1px solid #7B2FF7;
           border-radius: 8px;
           overflow: hidden;
-          box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
+          box-shadow: 0 4px 30px rgba(123, 47, 247, 0.1);
         }
         .header {
           background-color: #000;
           padding: 30px;
           text-align: center;
-          border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+          border-bottom: 1px solid rgba(123, 47, 247, 0.2);
         }
         .brand {
           font-size: 20px;
@@ -86,7 +86,7 @@ async function sendContactEmail(data: {
           margin: 0;
         }
         .brand span {
-          color: #D4AF37;
+          color: #7B2FF7;
           font-weight: 600;
         }
         .content {
@@ -94,12 +94,12 @@ async function sendContactEmail(data: {
         }
         h1 {
           font-size: 18px;
-          color: #D4AF37;
+          color: #7B2FF7;
           text-transform: uppercase;
           letter-spacing: 0.15em;
           margin-top: 0;
           margin-bottom: 25px;
-          border-left: 2px solid #D4AF37;
+          border-left: 2px solid #7B2FF7;
           padding-left: 10px;
         }
         .field-group {
@@ -122,9 +122,9 @@ async function sendContactEmail(data: {
         .tag {
           display: inline-block;
           padding: 4px 10px;
-          background-color: rgba(212, 175, 55, 0.1);
-          color: #D4AF37;
-          border: 1px solid rgba(212, 175, 55, 0.3);
+          background-color: rgba(123, 47, 247, 0.1);
+          color: #7B2FF7;
+          border: 1px solid rgba(123, 47, 247, 0.3);
           font-size: 11px;
           border-radius: 4px;
           text-transform: uppercase;
@@ -137,7 +137,7 @@ async function sendContactEmail(data: {
           font-size: 10px;
           color: #555;
           letter-spacing: 0.1em;
-          border-top: 1px solid rgba(212, 175, 55, 0.1);
+          border-top: 1px solid rgba(123, 47, 247, 0.1);
         }
       </style>
     </head>
@@ -156,7 +156,7 @@ async function sendContactEmail(data: {
           
           <div class="field-group">
             <div class="label">Email Address</div>
-            <div class="value"><a href="mailto:${data.email}" style="color: #D4AF37; text-decoration: none;">${data.email}</a></div>
+            <div class="value"><a href="mailto:${data.email}" style="color: #7B2FF7; text-decoration: none;">${data.email}</a></div>
           </div>
 
           <div class="field-group">
