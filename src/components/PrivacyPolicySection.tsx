@@ -19,7 +19,7 @@ export default function PrivacyPolicySection({ onBack }: PrivacyPolicySectionPro
       {/* Navigation breadcrumbs link back */}
       <button 
         onClick={onBack}
-        className="group mb-12 flex items-center gap-2.5 w-fit font-mono text-[10px] tracking-widest text-[#7B2FF7] uppercase select-none cursor-pointer hover:text-white transition-colors duration-300"
+        className="group mb-12 flex items-center gap-2.5 w-fit font-mono text-[10px] tracking-widest text-brand-violet uppercase select-none cursor-pointer hover:text-white transition-colors duration-300"
       >
         <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
         <span>Return to Studio Hub</span>
@@ -27,37 +27,37 @@ export default function PrivacyPolicySection({ onBack }: PrivacyPolicySectionPro
 
       {/* Header Title Block */}
       <div className="mb-14">
-        <span className="font-mono text-[10px] tracking-[0.6em] text-[#7B2FF7] uppercase block mb-3">SECURE PROTOCOLS</span>
+        <span className="font-mono text-[10px] tracking-[0.6em] text-brand-violet uppercase block mb-3">SECURE PROTOCOLS</span>
         <h1 className="font-display text-4xl sm:text-5xl font-extralight tracking-tight text-white uppercase leading-none">
-          PRIVACY <span className="text-[#7B2FF7] font-semibold tracking-wide">CHARTER</span>
+          PRIVACY <span className="text-brand-violet font-semibold tracking-wide">CHARTER</span>
         </h1>
         <p className="mt-4 font-sans text-xs sm:text-sm tracking-[0.25em] text-gray-400 font-medium uppercase">
           Xentriq Studio Privacy & Data Protection Policy
         </p>
-        <div className="h-[1px] w-24 bg-gradient-to-r from-[#7B2FF7] to-transparent mt-6" />
+        <div className="h-[1px] w-24 bg-gradient-to-r from-brand-violet to-transparent mt-6" />
       </div>
 
       {/* Quick metadata registry */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-y border-white/10 py-8 mb-12 text-left bg-white/[0.03] rounded-xl px-6">
         <div className="flex items-center gap-3">
-          <Clock className="w-4 h-4 text-[#7B2FF7] shrink-0" />
+          <Clock className="w-4 h-4 text-brand-violet shrink-0" />
           <div>
             <span className="font-mono text-[8px] text-gray-500 uppercase tracking-widest block">LAST UPDATE</span>
             <span className="font-sans text-xs text-slate-200">June 22, 2026</span>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Shield className="w-4 h-4 text-[#7B2FF7] shrink-0" />
+          <Shield className="w-4 h-4 text-brand-violet shrink-0" />
           <div>
             <span className="font-mono text-[8px] text-gray-500 uppercase tracking-widest block">ADMINISTRATION</span>
             <span className="font-sans text-xs text-slate-200">Xentriq Studio</span>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <Mail className="w-4 h-4 text-[#7B2FF7] shrink-0" />
+          <Mail className="w-4 h-4 text-brand-violet shrink-0" />
           <div>
             <span className="font-mono text-[8px] text-gray-500 uppercase tracking-widest block">EMAIL DISPATCH</span>
-            <a href="mailto:admin@xentriqstudio.com" className="font-sans text-xs text-[#7B2FF7] hover:underline">
+            <a href="mailto:admin@xentriqstudio.com" className="font-sans text-xs text-brand-violet hover:underline">
               admin@xentriqstudio.com
             </a>
           </div>
