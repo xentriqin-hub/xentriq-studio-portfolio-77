@@ -79,9 +79,9 @@ export default function App() {
     <div className="relative w-full min-h-screen bg-[#050505] text-white selection:bg-[#7B2FF7]/30 selection:text-[#7B2FF7]">
       {/* Background Gradient Blobs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#7B2FF7]/20 rounded-full blur-[150px]" />
-        <div className="absolute top-[20%] right-[-10%] w-[40vw] h-[40vw] bg-[#9D4EDD]/20 rounded-full blur-[150px]" />
-        <div className="absolute bottom-[-10%] left-[10%] w-[40vw] h-[40vw] bg-[#4C1D95]/20 rounded-full blur-[150px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] bg-[#7B2FF7]/20 rounded-full blur-[150px]" />
+        <div className="absolute top-[20%] right-[-10%] w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] bg-[#9D4EDD]/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-[-10%] left-[10%] w-[80vw] h-[80vw] md:w-[40vw] md:h-[40vw] bg-[#4C1D95]/20 rounded-full blur-[150px]" />
       </div>
 
       {/* The main high-fidelity user interface block */}
