@@ -1,49 +1,23 @@
 export interface Service {
   id: string;
   title: string;
-  icon: string;
   description: string;
-  benefits: string[];
+  category: 'development' | 'design' | 'marketing' | 'ai';
+  icon: string; // lucide icon name
   technologies: string[];
-  process: string[];
-  timeline: string;
+  features: string[];
 }
 
 export interface Project {
   id: string;
   title: string;
-  category: string;
   description: string;
-  image: string;
-  technologies: string[];
-  link?: string;
-  details: {
-    client: string;
-    role: string;
-    duration: string;
-    challenge: string;
-    solution: string;
-    results: string[];
-  };
-}
-
-export interface Technology {
-  name: string;
-  category: 'frontend' | 'backend' | 'database' | 'ai' | 'cloud_devops';
-  icon: string;
-}
-
-export interface ProcessStage {
-  id: number;
-  title: string;
-  description: string;
-  duration: string;
-}
-
-export interface Statistic {
-  label: string;
-  value: number;
-  suffix?: string;
+  category: 'web' | 'mobile' | 'ai' | 'design';
+  image: string; // abstract gradient or descriptive SVG index
+  tags: string[];
+  liveUrl?: string;
+  metrics: { label: string; value: string };
+  highlights: string[];
 }
 
 export interface Testimonial {
@@ -51,12 +25,25 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
+  avatar: string; // descriptive initials or custom generated layout
+  rating: number;
   content: string;
-  avatar?: string;
 }
 
-export interface ComparisonMetric {
-  title: string;
-  description: string;
-  icon: string;
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+}
+
+export interface ConsultationRequest {
+  name: string;
+  email: string;
+  company: string;
+  projectType: string;
+  budget: string;
+  message: string;
+  date: string;
+  status: 'pending' | 'scheduled';
 }

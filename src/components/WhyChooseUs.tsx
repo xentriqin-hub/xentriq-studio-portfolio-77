@@ -1,52 +1,101 @@
-import React from 'react';
-import * as Icons from 'lucide-react';
-import { comparisonMetrics } from '../data';
-import TiltCard from './TiltCard';
-
-function MagicIcon({ name, className = 'w-5 h-5' }: { name: string; className?: string }) {
-  const IconComponent = (Icons as any)[name] || Icons.HelpCircle;
-  return <IconComponent className={className} />;
-}
+import { ShieldCheck, Flame, Palette, Milestone, Eye } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function WhyChooseUs() {
+  const points = [
+    {
+      title: 'Apple-Inspired Visual Prestige',
+      desc: 'We craft immersive digital environments with liquid glassmorphism, precise tracking, spacious grids, and deliberate animations that generate absolute user confidence.',
+      icon: Palette,
+      color: 'text-white',
+      bgGlow: 'from-indigo-500/10 to-indigo-600/5'
+    },
+    {
+      title: 'Full-Stack Technical Safeguards',
+      desc: 'We enforce strict TypeScript, proxy secrets securely through custom server endpoints, and manage databases to keep enterprise integrations fully protected.',
+      icon: ShieldCheck,
+      color: 'text-white',
+      bgGlow: 'from-emerald-500/10 to-emerald-600/5'
+    },
+    {
+      title: 'Blazing Fast Performance Scores',
+      desc: 'We optimize Core Web Vitals to achieve near-instantaneous load speeds, ensuring flawless user navigation, search discoverability, and high client retention.',
+      icon: Flame,
+      color: 'text-white',
+      bgGlow: 'from-rose-500/10 to-rose-600/5'
+    },
+    {
+      title: 'Tailored Automation & AI Audits',
+      desc: 'We deploy robust, autonomous agents and custom chatbots securely inside private virtual containers, allowing you to scale internal workflows safely.',
+      icon: Milestone,
+      color: 'text-white',
+      bgGlow: 'from-purple-500/10 to-purple-600/5'
+    }
+  ];
+
   return (
-    <section 
-      id="why-choose-us"
-      className="relative py-28 px-6 md:px-10 max-w-7xl mx-auto z-15 min-h-[80vh] flex flex-col justify-center border-t border-white/5"
-    >
-      {/* Editorial Header */}
-      <div className="text-center mb-20">
-        <span className="font-mono text-[10px] tracking-[0.6em] text-white uppercase">
-          why choose us
-        </span>
-        <h2 className="mt-2 font-display text-3xl md:text-5xl font-bold tracking-tight text-white uppercase">
-          THE BENCHMARK OF <span className="text-white font-semibold">SUPERIORITY</span>
-        </h2>
-        <div className="h-0.5 w-24 bg-white mx-auto mt-4" />
-      </div>
+    <section id="why-us" className="py-24 px-6 relative overflow-hidden bg-[#05050a]/40">
+      {/* Background blur */}
+      <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-indigo-600/5 rounded-full blur-[130px] pointer-events-none animate-float-3" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] font-mono text-purple-300 tracking-wider mb-4">
+            <Eye className="w-3.5 h-3.5 text-white" />
+            <span>OUR EDGE</span>
+          </div>
+          <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl tracking-tight text-white mb-6">
+            Engineered for <span className="text-gradient-purple">Absolute Trust</span>
+          </h2>
+          <p className="font-sans text-gray-400 text-base sm:text-lg">
+            We abandon standard templates and generic practices to create digital products that operate at the pinnacle of visual prestige and processing speed.
+          </p>
+        </motion.div>
 
-      {/* Bento Differentiator Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {comparisonMetrics.map((item, idx) => (
-          <TiltCard
-            key={item.title}
-            index={idx}
-            className="flex flex-col justify-between min-h-[220px]"
-          >
-            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white border border-white/20 group-hover:bg-white group-hover:text-black group-hover:border-white transition-all duration-300">
-              <MagicIcon name={item.icon} className="w-5 h-5" />
-            </div>
+        {/* Value Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          {points.map((point, index) => {
+            const Icon = point.icon;
+            return (
+              <motion.div
+                key={point.title}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group rounded-2xl p-6 sm:p-8 glass-card-premium flex gap-5 hover:border-white/10 transition-all duration-500 relative overflow-hidden"
+              >
+                {/* Glowing fluid accent backing card */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-white/1 opacity-10 group-hover:to-white/2 transition-all duration-500 pointer-events-none" />
 
-            <div className="mt-6">
-              <h3 className="font-display text-lg font-bold tracking-wide text-white mb-2">
-                {item.title}
-              </h3>
-              <p className="font-sans text-[11px] text-gray-400 leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          </TiltCard>
-        ))}
+                {/* Left Icon Panel */}
+                <div className="shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center shadow-lg group-hover:border-indigo-500/20 group-hover:bg-indigo-500/10 transition-all duration-500">
+                    <Icon className={`w-6 h-6 ${point.color}`} />
+                  </div>
+                </div>
+
+                {/* Right Text Content */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <h3 className="font-display font-semibold text-lg text-white mb-2 group-hover:text-indigo-300 transition-colors">
+                    {point.title}
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-gray-400 leading-relaxed">
+                    {point.desc}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 {
-  "name": "Xentriq Studio Portfolio",
-  "description": "An ultra-premium, cinematic, futuristic 3D portfolio website for Xentriq Studio.",
+  "name": "Xentriq Studio",
+  "description": "Premium software development portfolio with minimalist Apple-inspired liquid glassmorphism UI.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
