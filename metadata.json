@@ -1,0 +1,6 @@
+{
+  "name": "Xentriq Studio",
+  "description": "Xentriq Studio is a premium, modern software and digital solutions company crafting intelligent digital experiences with world-class design and engineering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
