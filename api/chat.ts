@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import { GoogleGenAI } from "@google/genai";
 
 let aiClient: GoogleGenAI | null = null;
